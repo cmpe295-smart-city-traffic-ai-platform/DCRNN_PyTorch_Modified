@@ -30,12 +30,12 @@ train:
   max_grad_norm: 5
   max_to_keep: 100
   min_learning_rate: 2.0e-06
-  model_filename: models/epo8.tar
+  model_filename: models/epo0.tar
   optimizer: adam
   patience: 50
   steps:
-  - 20
-  - 30
-  - 40
-  - 50
+    - 20
+    - 30
+    - 40
+    - 50
   test_every_n_epochs: 10
