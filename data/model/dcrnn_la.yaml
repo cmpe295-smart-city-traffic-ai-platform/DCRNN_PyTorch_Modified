@@ -2,10 +2,10 @@
 base_dir: data/model
 log_level: INFO
 data:
-  batch_size: 64
+  batch_size: 512
   dataset_dir: data/METR-LA
-  test_batch_size: 64
-  val_batch_size: 64
+  test_batch_size: 512
+  val_batch_size: 512
   graph_pkl_filename: data/sensor_graph/adj_mx.pkl
 
 model:
@@ -35,5 +35,5 @@ train:
   min_learning_rate: 2.0e-06
   optimizer: adam
   patience: 50
-  steps: [20, 30, 40, 50]
+  steps: [5, 10, 15, 20, 25]
   test_every_n_epochs: 10
