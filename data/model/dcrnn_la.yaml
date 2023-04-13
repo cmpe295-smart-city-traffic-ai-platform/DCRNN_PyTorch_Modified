@@ -11,7 +11,7 @@ data:
 model:
   cl_decay_steps: 2000
   filter_type: dual_random_walk
-  horizon: 18
+  horizon: 6
   input_dim: 2
   l1_decay: 0
   max_diffusion_step: 2
@@ -19,7 +19,7 @@ model:
   num_rnn_layers: 2
   output_dim: 1
   rnn_units: 64
-  seq_len: 18
+  seq_len: 6
   use_curriculum_learning: true
 
 train:
@@ -34,6 +34,6 @@ train:
   max_to_keep: 100
   min_learning_rate: 2.0e-06
   optimizer: adam
-  patience: 50
+  patience: 30
   steps: [5, 10, 15, 20, 25]
   test_every_n_epochs: 10
