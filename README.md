@@ -484,8 +484,6 @@ network architecture can reliably replicate the results with minimal variance.
 In order to address this issue, we have decided to perform a sensitivity analysis test
 using their training routine. This is done by creating 5 models each for sets of
 configurations containing different values for the sequence length and horizon
-
-
 parameters. We have thus assigned these hyperparameters units of 1 , 6 , and 18 ,
 where a unit is 5 minutes (Figures 12.a, 12.b, and 12.c, respectively). Other hyper
 parameters that were available, such as learning rate, remained identical across
@@ -519,7 +517,11 @@ curves.
 ```
 Our earlier findings regarding the first model are confirmed by inspecting the
 values in Table 1. The models do not early stop and run for the full duration,
-meaning that the training process has issues reaching its desired minimum, by
+meaning that the training process has issues reaching its desired minimum, by overshooting.
+This can be caused by too large of a learning rate. Still, the MAE score is the best out of
+the models we have tried, likely due to the fact that it is the easiest to predict only 5 minutes
+into the future. Conclusively, the standard deviation between the MAE values retrieved through
+early stopping, solidifies the claim that the training method employed is robust.
 
 By displaying the performance of these models on the test set, we set out to improve
 the validity of the conclusions in the paper. As such, we validated the consistency of
