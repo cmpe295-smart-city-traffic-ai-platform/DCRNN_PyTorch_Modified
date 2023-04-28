@@ -1,8 +1,5 @@
-# Revisiting DCRNN: Diffusion Convolutional
 Link to the original blog post: https://medium.com/@saeedrmd/revisiting-dcrnn-diffusion-convolutional-recurrent-neural-network-data-driven-traffic-forecasting-caeecbe3281b
-# Recurrent Neural Network: Data-Driven Traffic
-
-# Forecasting
+# Revisiting DCRNN: Diffusion Convolutional Recurrent Neural Network: Data-Driven Traffic Forecasting
 
 ## Introduction
 
@@ -94,6 +91,7 @@ collect traffic data, such as speed, volume, and occupancy. The sensors are
 distributed across the road network and are primarily located on highways and
 major arterial roads.
 
+![Figure 1: The location of the sensors on the METR-LA network](./pictures/0.png)
 ```
 Figure 1: The location of the sensors on the METR-LA network
 ```
@@ -103,7 +101,7 @@ The code from the paper “Diffusion Convolutional Recurrent Neural Network: Dat
 Driven Traffic Forecasting” available at https://github.com/chnsh/DCRNN_PyTorch,
 was replicated and adapted to function on Google Colab.
 
-Modifications:
+### Modifications:
 
 The code was modified to ensure compatibility with the latest version of Python and
 the latest library versions. Some deprecated methods from these libraries were
@@ -128,7 +126,7 @@ script is available at https://github.com/mehulbhuradia/DCRNN_PyTorch
 A new .txt file with the chosen sensor ids was also added for each subset of sensors
 to create a new adjacency matrix for those sensors.
 
-Availability:
+### Availability:
 
 The adapted code is available as a .ipynb file, which can be accessed at
 https://github.com/mehulbhuradia/DCRNN_PyTorch/blob/mehul
@@ -139,7 +137,7 @@ curve. The config files and sensor_ids.text files were also modified to change t
 subset of chosen sensors, the model parameters, and the hyperparameters used for
 different runs.
 
-Important Files:
+### Important Files:
 
 In this section, we briefly explain the important files and classes in the repository in
 order to provide a better understanding of the model.
@@ -247,7 +245,7 @@ training data, and as such, they need to be manually tuned. In this section we w
 discuss our experiments involving Horizon and Sequence Length, Learning Rates,
 amount of RNN units and Maximum Diffusion Step.
 
-Horizon and Sequence Length
+### Horizon and Sequence Length
 The Horizon is the number of future time steps that the model tries to predict.
 When a model’s Horizon is subject to changes we can expect an impact on accuracy.
 A shorter Horizon might be capable of better capturing local trends and short-term
@@ -260,6 +258,8 @@ We decided to test Horizon and Sequence Length for values 1, 6, 18 which
 respectively correspond to time steps of 5, 30 and 90 minutes. The average learning
 curves for these experiments are depicted in Figure 1.
 
+![Figure 1. Average learning curve based on 5 trained models with the horizon and sequence values set to a\) 1,
+b\) 6, and c\) 18](./pictures/1.png)
 ```
 Figure 1. Average learning curve based on 5 trained models with the horizon and sequence values set to a) 1,
 b) 6, and c) 18
@@ -270,7 +270,7 @@ observe a similar curve behavior, but with a lower accuracy in Horizon 18. What 
 can derive from the plots is that, in this specific setting, a lower Horizon can benefit
 traffic prediction.
 
-Learning Rate Decay
+### Learning Rate Decay
 
 The Learning Rate is a crucial parameter to tune as it affects the frequency of
 parameter updates in the model. A low learning rate may cause the model to get
@@ -285,16 +285,17 @@ more erratic increase in accuracy over the training period.
 
 Upon analyzing these curves, it was observed that starting the decay schedule
 earlier and making it more frequent resulted in a smoother learning curve and an
-
-
 improvement in the model’s accuracy.
 
+![Figure 2. a\) The learning curve for a model with a more frequent learning rate decay schedule. The learning
+rate decay steps are at epochs 5, 10, 15, 20, and 25. b\) The learning curve for a model with a less frequent
+learning rate decay schedule. The learning rate decay steps are at epochs 20, 30, 40, and 50.](./pictures/2.png)
 ```
 Figure 2. a) The learning curve for a model with a more frequent learning rate decay schedule. The learning
 rate decay steps are at epochs 5, 10, 15, 20, and 25. b) The learning curve for a model with a less frequent
 learning rate decay schedule. The learning rate decay steps are at epochs 20, 30, 40, and 50.
 ```
-Number of RNN Units
+### Number of RNN Units
 
 The RNN unit is designed to allow the network to maintain a memory of previous
 inputs and use this memory to inform its predictions for future inputs. A high
@@ -308,12 +309,13 @@ comparable overall. We can infer that a higher amount of RNN units might not be
 necessary for this specific setting and lowering the complexity of the model for
 similar results might be favorable.
 
-
+![Figure 3. The learning curves for models with a\) 32 and b\) 128 RNN units. The horizon and sequence length
+are set to 6](./pictures/3.png)
 ```
 Figure 3. The learning curves for models with a) 32 and b) 128 RNN units. The horizon and sequence length
 are set to 6
 ```
-Max Diffusion Step
+### Max Diffusion Step
 The Max Diffusion Step determines the maximum number of iterations or diffusion
 steps that the model performs during training. Increasing the max diffusion step
 can lead to a more accurate model by allowing the diffusion process to continue for
@@ -325,7 +327,7 @@ In our case Max Diffusion Step determines the distance of other sensors that are
 queried for de-noising, with 0 being none. We tested values 0, 1, 2, 3, 4 and 5 for
 Maximum Diffusion Step.
 
-
+![Figure 4. Max Diffusion Steps of a\) 0, b\) 1, c\) 2, d\) 3, e\) 4, f\) 5.](./pictures/4.png)
 ```
 Figure 4. Max Diffusion Steps of a) 0, b) 1, c) 2, d) 3, e) 4, f) 5.
 ```
@@ -336,7 +338,7 @@ unrelated data.
 
 ## Ablation Studies
 
-Ablation Study 1 | Reducing the network size
+### Ablation Study 1 | Reducing the network size
 
 In the first ablation study, we reduced the number of sensors in the network (and
 correspondingly in the graph) to 20 and retrained the model using the new sensor
@@ -347,10 +349,9 @@ is not very much dependent on the number of the sensors?
 
 For this purpose, we first plotted the sensors on the map of the study area using
 QGIS and then chose 20 sensors from the east-southern part of the study area. The
-
-
 location of the chosen sensors is depicted in Figure 5.
 
+![Figure 5. The location of selected 20 sensors for ablation study 1](./pictures/5.png)
 ```
 Figure 5. The location of selected 20 sensors for ablation study 1
 ```
@@ -378,7 +379,7 @@ How about if we had chosen random sensors? To answer these questions, we did
 another ablation study, this time using different setups for the sensors. In the next
 section, we briefly overview this experiment.
 
-Ablation Study 2 | Repositioning and Sensor Selection
+### Ablation Study 2 | Repositioning and Sensor Selection
 As it was mentioned in the previous section, in order to analyze the sensitivity of the
 results (model) against the sensors’ location and sensor distances, we did another
 study repositioning the selected 20 sensors to different regions of the study area.
@@ -391,6 +392,7 @@ This scenario was defined based on the ablation study and is used as a benchmark
 for the other 4 scenarios. The location of the selected sensors are depicted using red
 dots in Figure 6.
 
+![Figure 6. Location of selected sensors for Scenario 1](./pictures/6.png)
 ```
 Figure 6. Location of selected sensors for Scenario 1
 ```
@@ -404,6 +406,7 @@ would still produce accurate results for a different area, with probably a diffe
 traffic pattern and dependencies. The location of the selected sensors for scenario 2
 are depicted using red dots in Figure 7.
 
+![Figure 7. Location of selected sensors for Scenario 2](./pictures/7.png)
 ```
 Figure 7. Location of selected sensors for Scenario 2
 ```
@@ -418,6 +421,7 @@ chose the instant neighbors of its neighbors. With this selection approach, we w
 interested to see in the model is sensitive to the distance between the sensors. The
 location of the selected sensors for scenario 3 are depicted using red dots in Figure 8.
 
+![Figure 8. Location of selected sensors for Scenario 3](./pictures/8.png)
 ```
 Figure 8. Location of selected sensors for Scenario 3
 ```
@@ -429,7 +433,7 @@ see if the model is sensitive to the density of the sensors and if it really mat
 the sensors are close to each other and from the same area. The location of the
 selected sensors are depicted using red dots in Figure 9.
 
-
+![Figure 9. Location of selected sensors for Scenario 4](./pictures/9.png)
 ```
 Figure 9. Location of selected sensors for Scenario 4
 ```
@@ -439,7 +443,7 @@ Figure 9. Location of selected sensors for Scenario 4
 This scenario is similar to scenario 4, but with a different random selection. The
 selected sensors are depicted in Figure 10.
 
-
+![Figure 10. Location of selected sensors for Scenario 5](./pictures/10.png)
 ```
 Figure 10. Location of selected sensors for Scenario 5
 ```
@@ -464,7 +468,7 @@ only changing the network size could significantly affect the results, but also 
 location and the selection of the sensors could have an impact on the accuracy of
 the model.
 
-
+![Figure 11. Learning curves against MAE values for the 5 scenarios](./pictures/11.png)
 ```
 Figure 11. Learning curves against MAE values for the 5 scenarios
 ```
@@ -490,6 +494,8 @@ average learning curve for each test scenario, as displaying 5 overlapping curve
 would impede analysis. Consequently, we attempted to showcase the spread of the
 data along the models by computing the interquartile range(IQR) in each epoch.
 
+![Figure 12: Average learning curve composed of MAE scores of the 5 models trained with: a\) horizon and
+sequence length = 1, b\) horizon and sequence length = 6, and c\) horizon and sequence length = 18](./pictures/12.png)
 ```
 Figure 12: Average learning curve composed of MAE scores of the 5 models trained with: a) horizon and
 sequence length = 1, b) horizon and sequence length = 6, and c) horizon and sequence length = 18
@@ -505,7 +511,8 @@ quickly, around the 30th epoch, with similar performance. We have also computed
 the mean and variance of the MAE values used to compute the curve, but also of the
 epochs that the models converged. The results are as follows:
 
-
+![Table 1: Table of the models for pairs of \(horizon, seq_len\) = {\(1,1\), \(6,6\), \(18,18\) with computed metrics for their
+curves.](./pictures/t1.png)
 ```
 Table 1: Table of the models for pairs of (horizon, seq_len) = {(1,1), (6,6), (18,18) with computed metrics for their
 curves.
@@ -528,20 +535,10 @@ hyperparameter testing over horizon and sequence length, learning rate decays,
 number of RNN units, and maximum diffusion steps. Afterwards, we did an ablation
 study by removing part of the network to see how if affects the accuracy of the
 model. We also did another study by repositioning the selected sensors to different
-parts of the studied area in 5 different scenarios to identify how the location of
-
-## overshooting. This can be caused by too large of a learning rate. Still, the MAE score
-
-is the best out of the models we have tried, likely due to the fact that it is the easiest
-to predict only 5 minutes into the future. Conclusively, the standard deviation
-between the MAE values retrieved through early stopping, solidifies the claim that
-th e training method employed is robust.
-
-
-sensors and their distance can affect the model’s accuracy. Finally, due to the
-shortcoming in the original paper, we did a sensitivity analysis to see how robust are
-the results and how sensitive is the model against different runs of the same
-scenarios with the same settings.
+parts of the studied area in 5 different scenarios to identify how the location of sensors
+and their distance can affect the model’s accuracy. Finally, due to the shortcoming in the
+original paper, we did a sensitivity analysis to see how robust are the results and how sensitive
+is the model against different runs of the same scenarios with the same settings.
 
 ## Contributions
 
