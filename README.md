@@ -536,13 +536,13 @@ is the model against different runs of the same scenarios with the same settings
 
 ## Contributions
 
-Mehul: Reproducing Study and Code Analysis
+Mehul Bhuradia: Reproducing Study and Code Analysis
 
-Max: Hyperparameter Testing
+Massimiliano Berardi: Hyperparameter Testing
 
-Saeed: Ablation Study 1 and 2 (Sensors selection and repositioning)
+Saeed Rahmani: Ablation Study 1 and 2 (Sensors selection and repositioning)
 
-Rares: Sensitivity Analysis
+Rares Boza: Sensitivity Analysis
 
 ## References:
 
