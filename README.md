@@ -12,8 +12,6 @@ The paper introduces a promising new approach to traffic forecasting, which is
 especially useful in the context of large metropolitan areas. With highly complex
 traffic patterns and a large number of roadways and intersections, these areas
 present significant challenges for traditional forecasting methods, such as time
-
-
 series and traditional convolutional-based deep learning models. In response, the
 DCRNN model combines a diffusion convolutional layer with a recurrent neural
 network to capture both spatial and temporal dependencies in traffic patterns. This
@@ -84,8 +82,6 @@ The main reason for choosing the METR-LA dataset is that there already exists a
 pre-trained model in the corresponding repository², and training a whole model was
 not feasible based on the available time and budget. The METR-LA network and the
 location of the sensors on the network are illustrated in Figure 1. As can be seen, the
-
-
 network consists of a large number of traffic sensors (207 sensors) that continuously
 collect traffic data, such as speed, volume, and occupancy. The sensors are
 distributed across the road network and are primarily located on highways and
@@ -107,8 +103,6 @@ The code was modified to ensure compatibility with the latest version of Python 
 the latest library versions. Some deprecated methods from these libraries were
 replaced with their new alternatives across all files used. Specifically, the
 “.as_matrix()” method from the pandas library was replaced with “.values”.
-
-
 Additionally, a loader was added to “yaml.load(f, Loader=yaml.Loader)” in place of
 the original “yaml.load(f )” from the yaml library.
 
@@ -372,7 +366,6 @@ interesting paper suggested how we can define lower bounds for the predictabilit
 of traffic [3, 4]. These theoretical insights could also be useful for defining the size of
 the network when developing graph-based deep learning models.
 
-
 However, this analysis does not tell the whole story. What if we had chosen another
 20 sensors from another part of the network? Would the results still be the same?
 How about if we had chosen random sensors? To answer these questions, we did
@@ -484,9 +477,9 @@ network architecture can reliably replicate the results with minimal variance.
 In order to address this issue, we have decided to perform a sensitivity analysis test
 using their training routine. This is done by creating 5 models each for sets of
 configurations containing different values for the sequence length and horizon
-parameters. We have thus assigned these hyperparameters units of 1 , 6 , and 18 ,
-where a unit is 5 minutes (Figures 12.a, 12.b, and 12.c, respectively). Other hyper
-parameters that were available, such as learning rate, remained identical across
+parameters. We have thus assigned these hyperparameters units of 1, 6, and 18,
+where a unit is 5 minutes (Figures 12.a, 12.b, and 12.c, respectively). Other hyperparameters
+that were available, such as learning rate, remained identical across
 runs. With the aim of visualising the results of our experiment, we calculated the
 average learning curve for each test scenario, as displaying 5 overlapping curves
 would impede analysis. Consequently, we attempted to showcase the spread of the
