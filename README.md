@@ -1,8 +1,3 @@
-```
-Saeed Rahmani Follow
-Apr 19 · 18 min read ·
-```
-
 # Revisiting DCRNN: Diffusion Convolutional
 Link to the original blog post: https://medium.com/@saeedrmd/revisiting-dcrnn-diffusion-convolutional-recurrent-neural-network-data-driven-traffic-forecasting-caeecbe3281b
 # Recurrent Neural Network: Data-Driven Traffic
