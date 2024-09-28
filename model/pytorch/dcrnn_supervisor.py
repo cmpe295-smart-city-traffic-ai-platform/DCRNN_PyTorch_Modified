@@ -18,6 +18,7 @@ class DCRNNSupervisor:
         self._data_kwargs = kwargs.get('data')
         self._model_kwargs = kwargs.get('model')
         self._train_kwargs = kwargs.get('train')
+        self._models_directory = self._data_kwargs.get('models_dir')
 
         self.max_grad_norm = self._train_kwargs.get('max_grad_norm', 1.)
 
@@ -90,10 +91,17 @@ class DCRNNSupervisor:
 
     def load_model(self):
         self._setup_graph()
-        assert os.path.exists('280_models/epo%d.tar' % self._epoch_num), 'Weights at epoch %d not found' % self._epoch_num
-        checkpoint = torch.load('280_models/epo%d.tar' % self._epoch_num, map_location='cpu')
-        self.dcrnn_model.load_state_dict(checkpoint['model_state_dict'])
-        self._logger.info("Loaded model at {}".format(self._epoch_num))
+        print(self._models_directory)
+        if self._models_directory is not None:
+            assert os.path.exists(self._models_directory + '/epo%d.tar' % self._epoch_num), 'Weights at epoch %d not found' % self._epoch_num
+            checkpoint = torch.load(self._models_directory + 'epo%d.tar' % self._epoch_num, map_location='cpu')
+            self.dcrnn_model.load_state_dict(checkpoint['model_state_dict'])
+            self._logger.info("Loaded model at {}".format(self._epoch_num))
+        else:
+            assert os.path.exists('280_models/epo%d.tar' % self._epoch_num), 'Weights at epoch %d not found' % self._epoch_num
+            checkpoint = torch.load('280_models/epo%d.tar' % self._epoch_num, map_location='cpu')
+            self.dcrnn_model.load_state_dict(checkpoint['model_state_dict'])
+            self._logger.info("Loaded model at {}".format(self._epoch_num))
 
     def _setup_graph(self):
         with torch.no_grad():
