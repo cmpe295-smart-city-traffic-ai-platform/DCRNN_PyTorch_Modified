@@ -30,7 +30,7 @@ train:
   max_grad_norm: 5
   max_to_keep: 100
   min_learning_rate: 2.0e-06
-  model_filename: models/epo0.tar
+  model_filename: 280_models/epo46.tar
   optimizer: adam
   patience: 50
   steps:

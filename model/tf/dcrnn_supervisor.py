@@ -41,7 +41,7 @@ class DCRNNSupervisor(object):
             if hasattr(v, 'shape'):
                 self._logger.info((k, v.shape))
 
-        # Build models.
+        # Build 280_models.
         scaler = self._data['scaler']
         with tf.name_scope('Train'):
             with tf.variable_scope('DCRNN', reuse=False):
@@ -306,7 +306,7 @@ class DCRNNSupervisor(object):
     def save(self, sess, val_loss):
         config = dict(self._kwargs)
         global_step = np.asscalar(sess.run(tf.train.get_or_create_global_step()))
-        prefix = os.path.join(self._log_dir, 'models-{:.4f}'.format(val_loss))
+        prefix = os.path.join(self._log_dir, '280_models-{:.4f}'.format(val_loss))
         config['train']['epoch'] = self._epoch
         config['train']['global_step'] = global_step
         config['train']['log_dir'] = self._log_dir
