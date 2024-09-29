@@ -115,7 +115,8 @@ if __name__ == '__main__':
     if not os.path.exists(f"data/PEMS-BAY/{args.major_road}"):
         os.makedirs(f"data/PEMS-BAY/{args.major_road}")
 
-    df = pd.read_hdf("data/pems-bay.h5")
+    # df = pd.read_hdf("data/pems-bay.h5")
+    df = pd.read_hdf(f"data/PEMS-BAY/{args.major_road}/data.h5")
     with open(args.sensor_ids_file, "r") as f:
         content = f.read()
         columns = content.split(',')

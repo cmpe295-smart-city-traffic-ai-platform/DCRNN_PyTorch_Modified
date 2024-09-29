@@ -98,8 +98,8 @@ class DCRNNSupervisor:
             self.dcrnn_model.load_state_dict(checkpoint['model_state_dict'])
             self._logger.info("Loaded model at {}".format(self._epoch_num))
         else:
-            assert os.path.exists('280_models/epo%d.tar' % self._epoch_num), 'Weights at epoch %d not found' % self._epoch_num
-            checkpoint = torch.load('280_models/epo%d.tar' % self._epoch_num, map_location='cpu')
+            assert os.path.exists('models/epo%d.tar' % self._epoch_num), 'Weights at epoch %d not found' % self._epoch_num
+            checkpoint = torch.load('models/epo%d.tar' % self._epoch_num, map_location='cpu')
             self.dcrnn_model.load_state_dict(checkpoint['model_state_dict'])
             self._logger.info("Loaded model at {}".format(self._epoch_num))
 
