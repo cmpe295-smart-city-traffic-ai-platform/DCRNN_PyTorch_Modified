@@ -23,7 +23,8 @@ def process_data(args):
 
     trafficdata = collection.find({
         'deviceIdNo': {'$exists': True},
-        'MAJOR_ROAD': args.major_road
+        'MAJOR_ROAD': args.major_road,
+        'timestamp': {'$gte': 1727593255}
     }).sort({'timestamp': 1})
 
     trafficdata_list = list(trafficdata)
@@ -57,10 +58,10 @@ def process_data(args):
 
         # keep track of distinct device ids
         device_id_int = int(traffic['deviceIdNo'])
-        print(f"device id int converted: {device_id_int}")
 
         # keep track of distinct device ids
         if device_id_int not in device_id_set:
+            print(f"Found device id {device_id_int}")
             device_id_set.add(device_id_int)
             location_split = traffic['location'].split(',')
             if device_id_int not in device_id_values:
@@ -74,6 +75,15 @@ def process_data(args):
     # update dataframe for speed values
     min_value_length = math.inf
     max_value_length = 0
+    #
+    # print("trying to check device id values")
+    # for device_value in device_id_values:
+    #     print(device_id_values[device_value])
+
+    # print(device_id_values.keys())
+    # device_id_values[400823] = device_id_values[400823][:20]
+
+
     for device_id in device_id_values.keys():
         if (device_id == 'Date'):
             continue
@@ -121,14 +131,19 @@ def process_data(args):
             speed_values_current_date.append(device_id_values.get(device_id)[i])
         speed_values_by_date.append(speed_values_current_date)
     print(f"device ids: {device_id_set}")
-    print(f"speed values by date: {speed_values_by_date}")
+    print("speed values by date")
+    for values in speed_values_by_date:
+        print(values)
     print(np.array(speed_values_by_date).shape)
 
     device_id_list = []
     for device_id in device_id_set:
         device_id_list.append(device_id)
+    print(len(device_id_list))
 
     # create dataframe for speeds by ids
+    print(f"created at dates")
+    print(created_at_dates)
     speeds_by_ids_df = pd.DataFrame(data=speed_values_by_date, index=created_at_dates, columns=device_id_list)
     display(speeds_by_ids_df)
     df_path = f"data/PEMS-BAY/{args.major_road}/data.h5"
