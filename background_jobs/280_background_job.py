@@ -7,7 +7,7 @@ if __name__ == '__main__':
     process_data_args = ['--major_road=I280']
     training_data_args = ['--major_road=I280', '--sensor_ids_file=data/sensor_graph/device_ids_280.txt']
     predictions_args = ['--config_filename=config_280.yaml', '--output_filename=data/280_dcrnn_predictions.npz']
-    store_predictions_args = ['--major_road=280']
+    store_predictions_args = ['--major_road=280', '--datasource=data/PEMS-BAY/I280/all.npz']
 
     logging.info("Processing data...")
     subprocess.call(['python', 'process_data.py', ] + process_data_args)

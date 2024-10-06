@@ -1,5 +1,3 @@
-import h5py
-import os
 import numpy as np
 import pandas
 from pymongo import MongoClient
@@ -9,6 +7,7 @@ from datetime import datetime, timedelta
 from IPython.display import display
 import pandas as pd
 import argparse
+import matplotlib.pyplot as plt
 
 pd.set_option('display.max_colwidth', None)
 pd.set_option('display.max_rows', None)
@@ -24,10 +23,12 @@ def process_data(args):
     trafficdata = collection.find({
         'deviceIdNo': {'$exists': True},
         'MAJOR_ROAD': args.major_road,
-        'timestamp': {'$gte': 1727593255}
+        'timestamp': {'$gte': 1727722020}
     }).sort({'timestamp': 1})
 
     trafficdata_list = list(trafficdata)
+
+    print(f"length of traffic data: {len(trafficdata_list)}")
 
     # keep track of current speed values
     current_speed_values = []
@@ -80,8 +81,6 @@ def process_data(args):
     # for device_value in device_id_values:
     #     print(device_id_values[device_value])
 
-    # print(device_id_values.keys())
-    # device_id_values[400823] = device_id_values[400823][:20]
 
 
     for device_id in device_id_values.keys():
@@ -142,12 +141,13 @@ def process_data(args):
     print(len(device_id_list))
 
     # create dataframe for speeds by ids
-    print(f"created at dates")
-    print(created_at_dates)
     speeds_by_ids_df = pd.DataFrame(data=speed_values_by_date, index=created_at_dates, columns=device_id_list)
     display(speeds_by_ids_df)
     df_path = f"data/PEMS-BAY/{args.major_road}/data.h5"
     speeds_by_ids_df.to_hdf(df_path, key='speed', mode='w')
+    # display collected values
+    speeds_by_ids_df.plot(title='Actual Values', figsize=(16, 8), legend=True)
+    plt.show()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

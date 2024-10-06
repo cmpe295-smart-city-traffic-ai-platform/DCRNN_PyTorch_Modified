@@ -1,15 +1,15 @@
 base_dir: data/model
 log_level: INFO
 data:
-  batch_size: 64
+  batch_size: 1
   dataset_dir: data/PEMS-BAY/CA87
   models_dir: 87_models/
   graph_pkl_filename: data/sensor_graph/adj_mx_87.pkl
-  test_batch_size: 64
+  test_batch_size: 1
 model:
   cl_decay_steps: 2000
   filter_type: dual_random_walk
-  horizon: 6
+  horizon: 1
   input_dim: 2
   l1_decay: 0
   max_diffusion_step: 2
@@ -22,7 +22,7 @@ model:
 train:
   base_lr: 0.01
   dropout: 0
-  epoch: 35
+  epoch: 25
   epochs: 100
   epsilon: 0.001
   global_step: 24375
@@ -31,7 +31,7 @@ train:
   max_grad_norm: 5
   max_to_keep: 100
   min_learning_rate: 2.0e-06
-  model_filename: 87_models/epo35.tar
+  model_filename: 87_models/epo25.tar
   optimizer: adam
   patience: 50
   steps:

@@ -17,7 +17,7 @@ def run_dcrnn(args):
         print(sensor_id_to_ind)
 
         supervisor = DCRNNSupervisor(adj_mx=adj_mx, **supervisor_config)
-        mean_score, outputs = supervisor.evaluate('test')
+        mean_score, outputs = supervisor.evaluate('all')
         np.savez_compressed(args.output_filename, **outputs)
         print("MAE : {}".format(mean_score))
         print('Predictions saved as {}.'.format(args.output_filename))

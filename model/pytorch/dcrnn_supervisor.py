@@ -135,6 +135,7 @@ class DCRNNSupervisor:
             for _, (x, y) in enumerate(val_iterator):
                 x, y = self._prepare_data(x, y)
 
+                # predict values based on x input
                 output = self.dcrnn_model(x)
                 loss = self._compute_loss(y, output)
                 losses.append(loss.item())
@@ -148,6 +149,9 @@ class DCRNNSupervisor:
 
             y_preds = np.concatenate(y_preds, axis=1)
             y_truths = np.concatenate(y_truths, axis=1)  # concatenate on batch dimension
+
+            print(f"y_preds shape before concat: {y_preds.shape}")
+            print(f"y_truths shape before concat: {y_truths.shape}")
 
             y_truths_scaled = []
             y_preds_scaled = []
@@ -273,6 +277,8 @@ class DCRNNSupervisor:
         :returns x shape (seq_len, batch_size, num_sensor, input_dim)
                  y shape (horizon, batch_size, num_sensor, input_dim)
         """
+
+        # create Tensor from numpy array, n-dimensional array in pytorch
         x = torch.from_numpy(x).float()
         y = torch.from_numpy(y).float()
         self._logger.debug("X: {}".format(x.size()))

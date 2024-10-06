@@ -7,7 +7,7 @@ if __name__ == '__main__':
     process_data_args = ['--major_road=I880']
     training_data_args = ['--major_road=I880', '--sensor_ids_file=data/sensor_graph/device_ids_880.txt']
     predictions_args = ['--config_filename=config_880.yaml', '--output_filename=data/880_dcrnn_predictions.npz']
-    store_predictions_args = ['--major_road=880']
+    store_predictions_args = ['--major_road=880', '--datasource=data/PEMS-BAY/I880/all.npz']
 
     logging.info("Processing data...")
     subprocess.call(['python', 'process_data.py', ] + process_data_args)

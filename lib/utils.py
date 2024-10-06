@@ -177,18 +177,19 @@ def get_total_trainable_parameter_size():
 
 def load_dataset(dataset_dir, batch_size, test_batch_size=None, **kwargs):
     data = {}
-    for category in ['train', 'val', 'test']:
+    for category in ['train', 'val', 'test', 'all']:
         cat_data = np.load(os.path.join(dataset_dir, category + '.npz'))
         data['x_' + category] = cat_data['x']
         data['y_' + category] = cat_data['y']
     scaler = StandardScaler(mean=data['x_train'][..., 0].mean(), std=data['x_train'][..., 0].std())
     # Data format
-    for category in ['train', 'val', 'test']:
+    for category in ['train', 'val', 'test', 'all']:
         data['x_' + category][..., 0] = scaler.transform(data['x_' + category][..., 0])
         data['y_' + category][..., 0] = scaler.transform(data['y_' + category][..., 0])
     data['train_loader'] = DataLoader(data['x_train'], data['y_train'], batch_size, shuffle=True)
     data['val_loader'] = DataLoader(data['x_val'], data['y_val'], test_batch_size, shuffle=False)
     data['test_loader'] = DataLoader(data['x_test'], data['y_test'], test_batch_size, shuffle=False)
+    data['all_loader'] = DataLoader(data['x_all'], data['y_all'], test_batch_size, shuffle=False)
     data['scaler'] = scaler
 
     return data

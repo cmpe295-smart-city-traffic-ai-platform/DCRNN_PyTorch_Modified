@@ -7,7 +7,7 @@ if __name__ == '__main__':
     process_data_args = ['--major_road=US101']
     training_data_args = ['--major_road=US101', '--sensor_ids_file=data/sensor_graph/device_ids_101.txt']
     predictions_args = ['--config_filename=config_101.yaml', '--output_filename=data/101_dcrnn_predictions.npz']
-    store_predictions_args = ['--major_road=101']
+    store_predictions_args = ['--major_road=101', '--datasource=data/PEMS-BAY/US101/all.npz']
 
     logging.info("Processing data...")
     subprocess.call(['python', 'process_data.py', ] + process_data_args)
