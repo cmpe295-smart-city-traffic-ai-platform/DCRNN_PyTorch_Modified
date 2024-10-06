@@ -104,3 +104,8 @@ ENV/
 
 runs/
 
+*.npz
+
+data/*.npz
+
+dcnn_DR_2_h_6_64*/
