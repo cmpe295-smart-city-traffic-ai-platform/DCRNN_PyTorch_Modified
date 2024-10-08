@@ -20,10 +20,11 @@ def process_data(args):
     db = client.trafficdata
     collection = db.trafficdata
 
+    # TODO update timestamp to get from previous days based on current timestamp
     trafficdata = collection.find({
         'deviceIdNo': {'$exists': True},
         'MAJOR_ROAD': args.major_road,
-        'timestamp': {'$gte': 1727722020}
+        'timestamp': {'$gte': 1728312847}
     }).sort({'timestamp': 1})
 
     trafficdata_list = list(trafficdata)
@@ -76,12 +77,6 @@ def process_data(args):
     # update dataframe for speed values
     min_value_length = math.inf
     max_value_length = 0
-    #
-    # print("trying to check device id values")
-    # for device_value in device_id_values:
-    #     print(device_id_values[device_value])
-
-
 
     for device_id in device_id_values.keys():
         if (device_id == 'Date'):
@@ -130,10 +125,7 @@ def process_data(args):
             speed_values_current_date.append(device_id_values.get(device_id)[i])
         speed_values_by_date.append(speed_values_current_date)
     print(f"device ids: {device_id_set}")
-    print("speed values by date")
-    for values in speed_values_by_date:
-        print(values)
-    print(np.array(speed_values_by_date).shape)
+    print(f"speed values by date shape: {np.array(speed_values_by_date).shape}")
 
     device_id_list = []
     for device_id in device_id_set:
@@ -143,8 +135,11 @@ def process_data(args):
     # create dataframe for speeds by ids
     speeds_by_ids_df = pd.DataFrame(data=speed_values_by_date, index=created_at_dates, columns=device_id_list)
     display(speeds_by_ids_df)
+
+    # write dataframe to h5 file
     df_path = f"data/PEMS-BAY/{args.major_road}/data.h5"
     speeds_by_ids_df.to_hdf(df_path, key='speed', mode='w')
+
     # display collected values
     speeds_by_ids_df.plot(title='Actual Values', figsize=(16, 8), legend=True)
     plt.show()

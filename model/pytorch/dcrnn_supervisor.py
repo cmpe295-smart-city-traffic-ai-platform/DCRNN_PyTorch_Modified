@@ -150,8 +150,8 @@ class DCRNNSupervisor:
             y_preds = np.concatenate(y_preds, axis=1)
             y_truths = np.concatenate(y_truths, axis=1)  # concatenate on batch dimension
 
-            print(f"y_preds shape before concat: {y_preds.shape}")
-            print(f"y_truths shape before concat: {y_truths.shape}")
+            print(f"y_preds shape after concat: {y_preds.shape}")
+            print(f"y_truths shape after concat: {y_truths.shape}")
 
             y_truths_scaled = []
             y_preds_scaled = []

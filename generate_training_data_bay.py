@@ -134,13 +134,16 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--sensor_ids_file', default=False, type=str, help='Sensor ids txt file')
     parser.add_argument('--major_road', default=False, type=str, help='Major Road')
+    parser.add_argument('--use-pems-data', default=False, type=bool, help='Use PEMS datasource')
     args = parser.parse_args()
 
     if not os.path.exists(f"data/PEMS-BAY/{args.major_road}"):
         os.makedirs(f"data/PEMS-BAY/{args.major_road}")
-
-    # df = pd.read_hdf("data/pems-bay.h5")
-    df = pd.read_hdf(f"data/PEMS-BAY/{args.major_road}/data.h5")
+    df = None
+    if args.use_pems_data:
+        df = pd.read_hdf("data/pems-bay.h5")
+    else:
+        df = pd.read_hdf(f"data/PEMS-BAY/{args.major_road}/data.h5")
     with open(args.sensor_ids_file, "r") as f:
         content = f.read()
         columns = content.split(',')

@@ -13,7 +13,7 @@ model:
   input_dim: 2
   l1_decay: 0
   max_diffusion_step: 2
-  num_nodes: 14
+  num_nodes: 13
   num_rnn_layers: 2
   output_dim: 1
   rnn_units: 64
@@ -22,7 +22,7 @@ model:
 train:
   base_lr: 0.01
   dropout: 0
-  epoch: 17
+  epoch: 34
   epochs: 100
   epsilon: 0.001
   global_step: 24375
@@ -31,7 +31,7 @@ train:
   max_grad_norm: 5
   max_to_keep: 100
   min_learning_rate: 2.0e-06
-  model_filename: 280_models/epo17.tar
+  model_filename: 280_models/epo34.tar
   optimizer: adam
   patience: 50
   steps:
