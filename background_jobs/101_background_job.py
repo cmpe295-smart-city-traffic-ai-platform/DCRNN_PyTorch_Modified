@@ -1,8 +1,17 @@
 import subprocess
 import logging
+import schedule
+import time
+import datetime
 
-if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO, format = "{asctime} - {levelname} - {message}",style = "{",datefmt = "%Y-%m-%d %H:%M:%S",)
+
+START_TIME = datetime.time(7, 30, 0)
+END_TIME = datetime.time(19, 00, 0)
+
+logging.basicConfig(level=logging.INFO, format="{asctime} - {levelname} - {message}", style="{",
+                    datefmt="%Y-%m-%d %H:%M:%S", )
+
+def prediction_background_job():
     logging.info("Starting 101 Background Job...")
     process_data_args = ['--major_road=US101']
     training_data_args = ['--major_road=US101', '--sensor_ids_file=data/sensor_graph/device_ids_101.txt']
@@ -18,3 +27,10 @@ if __name__ == '__main__':
     logging.info("Storing predictions...")
     subprocess.call(['python', 'store_predictions.py'] + store_predictions_args)
     logging.info(f"101 Background Job Completed")
+
+if __name__ == '__main__':
+    # reference: https://schedule.readthedocs.io/en/stable/
+    schedule.every(11).minutes.do(prediction_background_job)
+    while True:
+        schedule.run_pending()
+        time.sleep(1)

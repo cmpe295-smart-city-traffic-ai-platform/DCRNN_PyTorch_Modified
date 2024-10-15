@@ -20,11 +20,22 @@ def process_data(args):
     db = client.trafficdata
     collection = db.trafficdata
 
-    # TODO update timestamp to get from previous days based on current timestamp
+    # current timestamp
+    current_timestamp = datetime.now()
+    current_midnight_timestamp = current_timestamp.replace(hour=0, minute=0, second=0, microsecond=0)
+    current_midnight_timestamp = int(current_midnight_timestamp.timestamp())
+    print(current_midnight_timestamp)
+
+    # subtract seconds in hours to get starting timestamp N days ago
+    timestamp = current_midnight_timestamp - 259200
+
+    print(f"today starting timestamp: {current_midnight_timestamp}")
+    print(f"timestamp 72 hours ago: {timestamp}")
+
     trafficdata = collection.find({
         'deviceIdNo': {'$exists': True},
         'MAJOR_ROAD': args.major_road,
-        'timestamp': {'$gte': 1728312847}
+        'timestamp': {'$gte': timestamp}
     }).sort({'timestamp': 1})
 
     trafficdata_list = list(trafficdata)
@@ -141,8 +152,8 @@ def process_data(args):
     speeds_by_ids_df.to_hdf(df_path, key='speed', mode='w')
 
     # display collected values
-    speeds_by_ids_df.plot(title='Actual Values', figsize=(16, 8), legend=True)
-    plt.show()
+    # speeds_by_ids_df.plot(title='Actual Values', figsize=(16, 8), legend=True)
+    # plt.show()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
