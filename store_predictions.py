@@ -8,6 +8,7 @@ import argparse
 import datetime
 from pymongo import MongoClient
 import datetime
+import time
 
 pd.set_option('display.max_colwidth', None)
 pd.set_option('display.max_rows', None)
@@ -93,14 +94,15 @@ if __name__ == "__main__":
             'deviceIdNo': int(device_id_no)
         }
         print(traffic_prediction_record)
-        print("Inserting prediction record...")
+        print(f"Inserting prediction record for device id {device_id_no}...")
         try:
             collection.replace_one({'deviceIdNo': int(device_id_no)}, traffic_prediction_record, upsert=True)
             print(f"Inserted prediction record for device id no: {device_id_no}")
+            time.sleep(2)
         except Exception as e:
             print("Error while inserting")
             print(e)
 
+    print("Closing mongo connection")
     client.close()
-    display(predictions_df)
     # plt.show()

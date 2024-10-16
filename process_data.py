@@ -24,7 +24,6 @@ def process_data(args):
     current_timestamp = datetime.now()
     current_midnight_timestamp = current_timestamp.replace(hour=0, minute=0, second=0, microsecond=0)
     current_midnight_timestamp = int(current_midnight_timestamp.timestamp())
-    print(current_midnight_timestamp)
 
     # subtract seconds in hours to get starting timestamp N days ago
     timestamp = current_midnight_timestamp - 259200
