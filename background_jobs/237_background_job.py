@@ -29,8 +29,9 @@ def prediction_background_job():
 
 
 if __name__ == '__main__':
-    # reference: https://schedule.readthedocs.io/en/stable/
-    schedule.every(11).minutes.do(prediction_background_job)
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+    prediction_background_job()
+    # # reference: https://schedule.readthedocs.io/en/stable/
+    # schedule.every(11).minutes.do(prediction_background_job)
+    # while True:
+    #     schedule.run_pending()
+    #     time.sleep(1)
