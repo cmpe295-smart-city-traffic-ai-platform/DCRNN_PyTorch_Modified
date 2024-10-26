@@ -1,3 +1,20 @@
+# SJSU CMPE 295A/B
+The code here is used for educational purposes for CMPE 295 A/B. All credit belongs to original authors @mehulbhuradia 
+and @chnsh. Citing original source from:
+```
+@inproceedings{li2018dcrnn_traffic,
+  title={Diffusion Convolutional Recurrent Neural Network: Data-Driven Traffic Forecasting},
+  author={Li, Yaguang and Yu, Rose and Shahabi, Cyrus and Liu, Yan},
+  booktitle={International Conference on Learning Representations (ICLR '18)},
+  year={2018}
+}
+```
+
+
+
+
+
+
 Link to the original blog post: https://medium.com/@saeedrmd/revisiting-dcrnn-diffusion-convolutional-recurrent-neural-network-data-driven-traffic-forecasting-caeecbe3281b
 # Revisiting DCRNN: Diffusion Convolutional Recurrent Neural Network: Data-Driven Traffic Forecasting
 
