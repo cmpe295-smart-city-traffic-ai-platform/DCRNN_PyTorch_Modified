@@ -19,13 +19,13 @@ def prediction_background_job():
     store_predictions_args = ['--major_road=101', '--datasource=data/PEMS-BAY/US101/all.npz']
 
     logging.info("Processing data...")
-    subprocess.call(['python', 'process_data.py', ] + process_data_args)
+    subprocess.call(['python3', 'process_data.py', ] + process_data_args)
     logging.info("Generating test data...")
-    subprocess.call(['python', 'generate_training_data_bay.py'] + training_data_args)
+    subprocess.call(['python3', 'generate_training_data_bay.py'] + training_data_args)
     logging.info("Generating predictions...")
-    subprocess.call(['python', 'run_demo_pytorch.py'] + predictions_args)
+    subprocess.call(['python3', 'run_demo_pytorch.py'] + predictions_args)
     logging.info("Storing predictions...")
-    subprocess.call(['python', 'store_predictions.py'] + store_predictions_args)
+    subprocess.call(['python3', 'store_predictions.py'] + store_predictions_args)
     logging.info(f"101 Background Job Completed")
 
 if __name__ == '__main__':

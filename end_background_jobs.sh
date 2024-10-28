@@ -1,4 +1,5 @@
 #!/bin/bash
+# https://stackoverflow.com/questions/40652793/how-to-kill-python-script-with-bash-script
 
 echo "Ending background jobs..."
 kill $(pgrep -f 'background_jobs/237_background_job.py')
