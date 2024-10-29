@@ -3,6 +3,8 @@ import logging
 import schedule
 import time
 import datetime
+import pytz
+
 
 
 START_TIME = datetime.time(7, 30, 0)
@@ -12,9 +14,25 @@ logging.basicConfig(level=logging.INFO, format="{asctime} - {levelname} - {messa
                     datefmt="%Y-%m-%d %H:%M:%S", )
 
 python_env_exec = "./venv/bin/python3"
+pacific_timezone = pytz.timezone('US/Pacific')
+
+def is_valid_time():
+    current_time = datetime.datetime.now(pacific_timezone).time()
+    print(f"current_time: {current_time}")
+    if (current_time > END_TIME and current_time > START_TIME):
+        logging.warning(f"Invalid polling time: {current_time}")
+        return False
+
+    if (current_time < END_TIME and current_time < START_TIME):
+        logging.warning(f"Invalid polling time: {current_time}")
+        return False
+
+    return True
 
 
 def prediction_background_job():
+    if not is_valid_time():
+        return False
     logging.info("Starting 101 Background Job...")
     process_data_args = ['--major_road=US101']
     training_data_args = ['--major_road=US101', '--sensor_ids_file=data/sensor_graph/device_ids_101.txt']
