@@ -11,6 +11,9 @@ END_TIME = datetime.time(19, 00, 0)
 logging.basicConfig(level=logging.INFO, format="{asctime} - {levelname} - {message}", style="{",
                     datefmt="%Y-%m-%d %H:%M:%S", )
 
+
+python_env_exec = "./venv/bin/python3"
+
 def is_valid_time():
     current_time = datetime.datetime.now().time()
     print(f"current_time: {current_time}")
@@ -33,13 +36,13 @@ def prediction_background_job():
     store_predictions_args = ['--major_road=280', '--datasource=data/PEMS-BAY/I280/all.npz']
 
     logging.info("Processing data...")
-    subprocess.call(['python3', 'process_data.py', ] + process_data_args)
+    subprocess.call([python_env_exec, 'process_data.py', ] + process_data_args)
     logging.info("Generating test data...")
-    subprocess.call(['python3', 'generate_training_data_bay.py'] + training_data_args)
+    subprocess.call([python_env_exec, 'generate_training_data_bay.py'] + training_data_args)
     logging.info("Generating predictions...")
-    subprocess.call(['python3', 'run_demo_pytorch.py'] + predictions_args)
+    subprocess.call([python_env_exec, 'run_demo_pytorch.py'] + predictions_args)
     logging.info("Storing predictions...")
-    subprocess.call(['python3', 'store_predictions.py'] + store_predictions_args)
+    subprocess.call([python_env_exec, 'store_predictions.py'] + store_predictions_args)
     logging.info(f"280 Background Job Completed")
 
 
