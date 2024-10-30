@@ -33,7 +33,7 @@ def process_data(args):
     trafficdata = collection.find({
         'deviceIdNo': {'$exists': True},
         'MAJOR_ROAD': args.major_road,
-        'timestamp': {'$gte': 1729116243}
+        'timestamp': {'$gte': timestamp}
     }).sort({'timestamp': 1})
 
     trafficdata_list = list(trafficdata)
