@@ -7,7 +7,6 @@ from datetime import datetime, timedelta
 from IPython.display import display
 import pandas as pd
 import argparse
-import matplotlib.pyplot as plt
 
 pd.set_option('display.max_colwidth', None)
 pd.set_option('display.max_rows', None)
@@ -34,7 +33,7 @@ def process_data(args):
     trafficdata = collection.find({
         'deviceIdNo': {'$exists': True},
         'MAJOR_ROAD': args.major_road,
-        'timestamp': {'$gte': timestamp}
+        'timestamp': {'$gte': 1729116243}
     }).sort({'timestamp': 1})
 
     trafficdata_list = list(trafficdata)

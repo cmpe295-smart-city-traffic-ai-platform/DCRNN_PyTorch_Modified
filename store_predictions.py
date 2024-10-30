@@ -3,7 +3,6 @@ from IPython.display import display
 import pandas as pd
 import numpy as np
 from numpy import load
-import matplotlib.pyplot as plt
 import argparse
 import datetime
 from pymongo import MongoClient
@@ -64,13 +63,6 @@ if __name__ == "__main__":
     print(f"prediction data shape: {prediction_data[0].shape}")
     display(prediction_data)
     predictions_df = pd.DataFrame(data=prediction_data[0], columns=selected_ids, index=prediction_timestamps)
-    # ax = predictions_df.plot(title='Predictions One Horizon', figsize=(15, 8), legend=True)
-    # plt.xlabel('Time')
-    # plt.ylabel('MPH')
-    # plt.ylim(ymin=0)
-    # ax.set_xticks(np.arange(len(predictions_df.index)))
-    # ax.set_xticklabels([timestamp for timestamp in predictions_df.index], rotation=90)
-    # ax.set_xticks(ax.get_xticks()[::4])
 
 
     print("Prediction Values: ")
@@ -105,4 +97,3 @@ if __name__ == "__main__":
 
     print("Closing mongo connection")
     client.close()
-    # plt.show()
