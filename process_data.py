@@ -13,6 +13,8 @@ pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 pandas.set_option('display.expand_frame_repr', False)
 
+DAYS_BEFORE_SECONDS = 172800
+
 def process_data(args):
     # query mongodb database collection for traffic data by major road
     client = MongoClient(uuidRepresentation='pythonLegacy')
@@ -25,7 +27,7 @@ def process_data(args):
     current_midnight_timestamp = int(current_midnight_timestamp.timestamp())
 
     # subtract seconds in hours to get starting timestamp N days ago
-    timestamp = current_midnight_timestamp - 259200
+    timestamp = current_midnight_timestamp - DAYS_BEFORE_SECONDS
 
     print(f"today starting timestamp: {current_midnight_timestamp}")
     print(f"timestamp 72 hours ago: {timestamp}")
