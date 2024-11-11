@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from IPython.display import display
 import pandas as pd
 import argparse
+import pytz
 
 pd.set_option('display.max_colwidth', None)
 pd.set_option('display.max_rows', None)
@@ -14,6 +15,7 @@ pd.set_option('display.max_columns', None)
 pandas.set_option('display.expand_frame_repr', False)
 
 DAYS_BEFORE_SECONDS = 172800
+pst_timezone = pytz.timezone('US/Pacific')
 
 def process_data(args):
     # query mongodb database collection for traffic data by major road
@@ -22,12 +24,12 @@ def process_data(args):
     collection = db.trafficdata
 
     # current timestamp
-    current_timestamp = datetime.now()
+    current_timestamp = datetime.now(pst_timezone)
     current_midnight_timestamp = current_timestamp.replace(hour=0, minute=0, second=0, microsecond=0)
     current_midnight_timestamp = int(current_midnight_timestamp.timestamp())
 
-    # subtract seconds in hours to get starting timestamp N days ago
-    timestamp = current_midnight_timestamp - DAYS_BEFORE_SECONDS
+    # get data points greater than midnight today
+    timestamp = current_midnight_timestamp
 
     print(f"today starting timestamp: {current_midnight_timestamp}")
     print(f"timestamp 72 hours ago: {timestamp}")
