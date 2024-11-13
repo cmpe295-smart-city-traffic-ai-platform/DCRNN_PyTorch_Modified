@@ -6,8 +6,8 @@ import datetime
 import pytz
 
 
-START_TIME = datetime.time(7, 30, 0)
-END_TIME = datetime.time(19, 00, 0)
+START_TIME = datetime.time(6, 30, 0)
+END_TIME = datetime.time(20, 00, 0)
 
 logging.basicConfig(level=logging.INFO, format="{asctime} - {levelname} - {message}", style="{",
                     datefmt="%Y-%m-%d %H:%M:%S", )
